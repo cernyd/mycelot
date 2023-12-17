@@ -33,12 +33,13 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install --no-interaction --with dev
-          source .venv/bin/activate
       - name: Lint with flake8
         run: |
+          source .venv/bin/activate
           flake8 .
       - name: Lint with mypy
         run: |
+          source .venv/bin/activate
           mypy .
 
   build-and-test:
@@ -62,7 +63,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install --no-interaction --with dev
-          source .venv/bin/activate
       - name: Test with pytest
         run: |
+          source .venv/bin/activate
           pytest
