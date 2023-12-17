@@ -6,11 +6,10 @@ authors = ["David Černý <18537381+cernyd@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 click = "^8.1.7"
 pytest = "^7.4.3"
 rich = "^13.7.0"
-
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.7.1"
