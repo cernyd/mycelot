@@ -1,8 +1,10 @@
 from pathlib import Path
+
 import click
+from rich.console import Console
+
 from mycelot.catalog import FileCatalog
 from mycelot.exceptions.file_exists import FileExistsInCatalogException
-from rich.console import Console
 
 console = Console()
 
@@ -37,17 +39,17 @@ with console.status("[bold green]Indexing files..."):
 
 
 @click.group()
-def cli():
+def cli() -> None:
     pass
 
 
 @cli.command()
-def ls():
+def ls() -> None:
     print("List files")
 
 
 @cli.command()
-def add():
+def add() -> None:
     print("Add files")
 
 
