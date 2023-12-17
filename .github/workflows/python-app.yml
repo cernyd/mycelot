@@ -27,6 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --with dev
+          source .venv/bin/activate
       - name: Lint with flake8
         run: |
           flake8 .
@@ -49,6 +50,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --with dev
+          source .venv/bin/activate
       - name: Test with pytest
         run: |
           pytest
