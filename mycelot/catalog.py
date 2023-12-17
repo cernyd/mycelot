@@ -38,12 +38,16 @@ class FileCatalog:
         :return:
         :rtype: File
         """
-        catalog_dir = self._path / path.parent
-        catalog_dir.mkdir(exist_ok=True, parents=True)
+        if path.is_absolute():
+            catalog_dir = self._path
+        else:
+            catalog_dir = self._path / path.parent
+            catalog_dir.mkdir(exist_ok=True, parents=True)
+
         target_path = catalog_dir / path.name
 
         if target_path.exists():
-            raise FileExistsInCatalogException(path.name)
+            raise FileExistsInCatalogException(str(path.resolve()))
 
         shutil.copy2(path, target_path)
 
