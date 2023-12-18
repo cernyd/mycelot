@@ -1,8 +1,10 @@
 import shutil
 from pathlib import Path
+from typing import List
 
 from mycelot.exceptions.file_exists import FileExistsInCatalogException
-from mycelot.file_reference import CatalogFileReference, FileFactory
+from mycelot.file_reference import (CatalogFileReference,
+                                    FileReferenceRepository)
 from mycelot.serializer import XmlSerializer
 
 
@@ -15,15 +17,16 @@ class FileCatalog:
         for dir in self._path, self.catalog_path:
             dir.mkdir(exist_ok=True, parents=True)
 
-        self._serializer = XmlSerializer(self.catalog_path)
-        self._file_factory = FileFactory(self._serializer)
+        self._serializer = XmlSerializer()
+        self._file_repository = FileReferenceRepository(self._serializer)
         self._files = self._load_files()
 
-    def _load_files(self) -> list[CatalogFileReference]:
-        for file in self.catalog_path.glob("*.xml"):
-            pass
+    def _load_files(self) -> List[CatalogFileReference]:
+        files = []
+        for file in self.catalog_path.glob(f"*.{self._serializer.extension}"):
+            files.append(self._file_repository.load_from_catalog_file(file))
 
-        return []
+        return files
 
     @property
     def catalog_path(self) -> Path:
@@ -51,8 +54,9 @@ class FileCatalog:
 
         shutil.copy2(path, target_path)
 
-        file = self._file_factory.from_path(path)
-        file.save()
+        file = self._file_repository.create_from_path(path)
+        file.catalog_path = str(target_path.relative_to(self._path))
+        self._file_repository.save_to_catalog_file(file, self.catalog_path / f"{file.md5}.{self._serializer.extension}")
 
         return file
 
