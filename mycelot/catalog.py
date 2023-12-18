@@ -1,8 +1,8 @@
 import shutil
 from pathlib import Path
-from mycelot.exceptions.file_exists import FileExistsInCatalogException
 
-from mycelot.file import CatalogFileReference, FileFactory
+from mycelot.exceptions.file_exists import FileExistsInCatalogException
+from mycelot.file_reference import CatalogFileReference, FileFactory
 from mycelot.serializer import XmlSerializer
 
 

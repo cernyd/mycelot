@@ -5,7 +5,7 @@ import pytest
 
 from mycelot.catalog import FileCatalog
 from mycelot.exceptions.file_exists import FileExistsInCatalogException
-from mycelot.file import CatalogFileReference
+from mycelot.file_reference import CatalogFileReference
 
 
 @pytest.fixture
